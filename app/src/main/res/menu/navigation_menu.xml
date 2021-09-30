@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/waterMain"
+        android:icon="@drawable/ic_baseline_local_drink_24"
+        android:title="@string/counter" />
+
+    <item
+        android:id="@+id/waterDrunkHistory"
+        android:icon="@drawable/ic_baseline_view_list_24"
+        android:title="@string/history" />
+</menu>
