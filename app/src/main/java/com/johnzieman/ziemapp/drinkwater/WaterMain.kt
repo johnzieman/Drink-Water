@@ -34,5 +34,4 @@ class WaterMain : Fragment() {
         return view
     }
 
-
 }
