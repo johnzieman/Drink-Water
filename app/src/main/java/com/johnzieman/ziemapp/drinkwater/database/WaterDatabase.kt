@@ -7,6 +7,6 @@ import com.johnzieman.ziemapp.drinkwater.User
 
 @Database(entities = [User::class], version = 1, exportSchema = false)
 @TypeConverters(UserConverters::class)
-abstract class StoryDatabase: RoomDatabase() {
+abstract class WaterDatabase: RoomDatabase() {
     abstract fun getUserDao(): UserDao
 }
