@@ -10,9 +10,9 @@ data class User(
     val id:UUID = UUID.randomUUID(),
     val isConfigured: Int,
     var userName: String,
-    var userAge: Int,
-    var userHeight: Int,
-    var userWeight: Int,
+    var userAge: String,
+    var userHeight: String,
+    var userWeight: String,
     var userSex: String,
     var weightMetrics: String,
     var heightMetrics: String
