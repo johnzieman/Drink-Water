@@ -1,5 +1,6 @@
 package com.johnzieman.ziemapp.drinkwater.launch
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,13 +13,23 @@ import androidx.lifecycle.ViewModelProvider
 import com.johnzieman.ziemapp.drinkwater.R
 import com.johnzieman.ziemapp.drinkwater.User
 import com.johnzieman.ziemapp.drinkwater.databinding.FragmentLauncherConfigurationBinding
+import com.johnzieman.ziemapp.drinkwater.interfaces.OnLauncherOpener
 import com.johnzieman.ziemapp.drinkwater.launch.viewModels.LaunchConfigurationViewModel
 
-
+private const val TAG = "LAUNCHERCONFIG"
 class LauncherConfigurationFragment : Fragment() {
+
+    private var onLauncherOpener: OnLauncherOpener? = null
+
+
     private lateinit var binding: FragmentLauncherConfigurationBinding
     private val launchConfigurationViewModel: LaunchConfigurationViewModel by lazy {
         ViewModelProvider(this).get(LaunchConfigurationViewModel::class.java)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        onLauncherOpener = context as OnLauncherOpener
     }
 
     override fun onCreateView(
@@ -80,7 +91,10 @@ class LauncherConfigurationFragment : Fragment() {
                                             weightMetrics = weightMetrics,
                                             heightMetrics = heightMetrics
                                         )
-//                                        launchConfigurationViewModel.addUser(user)
+                                        launchConfigurationViewModel.addUser(user)
+                                        Log.d(TAG, "User saved")
+                                        onLauncherOpener?.onSaveUserData()
+
                                     } else {
                                         binding.userHeightMetric.error = "Select the unit"
                                     }
@@ -105,6 +119,11 @@ class LauncherConfigurationFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        onLauncherOpener = null
     }
 
 }

@@ -27,7 +27,7 @@ class LauncherFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_launcher, container, false)
         buttonNext = view.findViewById(R.id.button2)
         buttonNext.setOnClickListener {
-            onLauncherOpener?.OnOpenUserConfig()
+            onLauncherOpener?.onOpenUserConfig()
         }
         return view
     }
