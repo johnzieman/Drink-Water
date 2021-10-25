@@ -11,10 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DrinkWater">
         <activity
-            android:name=".MainActivity"
+            android:name=".launch.LaunchActivity"
             android:exported="true" />
         <activity
-            android:name=".launch.LaunchActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
