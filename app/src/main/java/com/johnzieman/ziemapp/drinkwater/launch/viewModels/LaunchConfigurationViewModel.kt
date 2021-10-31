@@ -28,5 +28,8 @@ class LaunchConfigurationViewModel : ViewModel() {
             storyId-> waterRepository.getUser(storyId)
     }
 
+    fun getUsers(): LiveData<List<User>> {
+        return waterRepository.getUsers()
+    }
 
 }

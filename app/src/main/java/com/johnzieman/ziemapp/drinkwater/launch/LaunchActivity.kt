@@ -25,5 +25,10 @@ class LaunchActivity : AppCompatActivity(), OnLauncherOpener {
     override fun onSaveUserData() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish()
+    }
+
+    override fun onOpenUSerResultFragment() {
+        navController.navigate(R.id.action_launcherConfigurationFragment_to_resultFragment)
     }
 }

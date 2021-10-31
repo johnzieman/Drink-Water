@@ -18,5 +18,14 @@
         android:id="@+id/launcherConfigurationFragment"
         android:name="com.johnzieman.ziemapp.drinkwater.launch.LauncherConfigurationFragment"
         android:label="fragment_launcher_configuration"
-        tools:layout="@layout/fragment_launcher_configuration" />
+        tools:layout="@layout/fragment_launcher_configuration" >
+        <action
+            android:id="@+id/action_launcherConfigurationFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.johnzieman.ziemapp.drinkwater.launch.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" />
 </navigation>
