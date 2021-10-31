@@ -93,7 +93,7 @@ class LauncherConfigurationFragment : Fragment() {
                                         )
                                         launchConfigurationViewModel.addUser(user)
                                         Log.d(TAG, "User saved")
-                                        onLauncherOpener?.onSaveUserData()
+                                        onLauncherOpener?.onOpenUSerResultFragment()
 
                                     } else {
                                         binding.userHeightMetric.error = "Select the unit"

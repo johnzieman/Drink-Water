@@ -25,5 +25,6 @@ class MainActivity : AppCompatActivity(), OnCheckRegistration {
     override fun onOpenLaunchFragment() {
         val intent = Intent(this, LaunchActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }
