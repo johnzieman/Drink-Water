@@ -8,6 +8,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnCheckRegistration
+import com.johnzieman.ziemapp.drinkwater.interfaces.OnSaveUserResult
 import com.johnzieman.ziemapp.drinkwater.launch.LaunchActivity
 
 class MainActivity : AppCompatActivity(), OnCheckRegistration {
@@ -27,4 +28,6 @@ class MainActivity : AppCompatActivity(), OnCheckRegistration {
         startActivity(intent)
         finish()
     }
+
+
 }

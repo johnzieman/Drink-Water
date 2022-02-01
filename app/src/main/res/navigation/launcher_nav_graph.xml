@@ -28,4 +28,5 @@
         android:name="com.johnzieman.ziemapp.drinkwater.launch.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" />
+    <include app:graph="@navigation/nav_graph" />
 </navigation>

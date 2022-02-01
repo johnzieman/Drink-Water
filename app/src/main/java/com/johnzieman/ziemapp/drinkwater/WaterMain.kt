@@ -2,6 +2,7 @@ package com.johnzieman.ziemapp.drinkwater
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.lottie.LottieAnimationView
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnCheckRegistration
+import com.johnzieman.ziemapp.drinkwater.interfaces.OnSaveUserResult
 
 private const val TAG = "WATERMAIN"
 
@@ -20,6 +22,7 @@ class WaterMain : Fragment() {
     private lateinit var lottieAnimationView: LottieAnimationView
 
     private var onCheckRegistration: OnCheckRegistration? = null
+
 
     private val waterMainViewModel: WaterMainViewModel by lazy {
         ViewModelProvider(this).get(WaterMainViewModel::class.java)
@@ -72,6 +75,7 @@ class WaterMain : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
     }
+
 
     override fun onDetach() {
         super.onDetach()

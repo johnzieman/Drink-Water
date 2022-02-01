@@ -1,5 +1,6 @@
 package com.johnzieman.ziemapp.drinkwater.launch
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,14 +12,22 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.johnzieman.ziemapp.drinkwater.R
+import com.johnzieman.ziemapp.drinkwater.interfaces.OnSaveUserResult
 import com.johnzieman.ziemapp.drinkwater.launch.viewModels.LaunchConfigurationViewModel
 
 class ResultFragment : Fragment() {
     private lateinit var textView3: TextView
     private lateinit var button: Button
 
+    private var onSafeUserResult: OnSaveUserResult? = null
+
     private val launcherConfigurationFragment: LaunchConfigurationViewModel by lazy {
         ViewModelProvider(this).get(LaunchConfigurationViewModel::class.java)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        onSafeUserResult = context as OnSaveUserResult
     }
 
     override fun onCreateView(
@@ -41,7 +50,7 @@ class ResultFragment : Fragment() {
         )
 
         button.setOnClickListener {
-
+            onSafeUserResult?.onLaunchMainFragment()
         }
 
         return view
@@ -96,6 +105,11 @@ class ResultFragment : Fragment() {
             waterGlassCount.toString()
         )
         Log.d("workingWeight", resultWater.toString())
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        onSafeUserResult = null
     }
 
 }
