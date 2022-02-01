@@ -2,7 +2,7 @@ package com.johnzieman.ziemapp.drinkwater.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.johnzieman.ziemapp.drinkwater.User
+import com.johnzieman.ziemapp.drinkwater.models.User
 import java.util.*
 
 @Dao

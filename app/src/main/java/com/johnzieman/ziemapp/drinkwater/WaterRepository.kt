@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.johnzieman.ziemapp.drinkwater.database.WaterDatabase
+import com.johnzieman.ziemapp.drinkwater.models.User
 import java.util.*
 import java.util.concurrent.Executors
 

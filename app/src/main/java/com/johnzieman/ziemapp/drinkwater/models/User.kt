@@ -1,4 +1,4 @@
-package com.johnzieman.ziemapp.drinkwater
+package com.johnzieman.ziemapp.drinkwater.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

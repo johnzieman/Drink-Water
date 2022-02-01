@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.johnzieman.ziemapp.drinkwater.User
+import com.johnzieman.ziemapp.drinkwater.models.User
 import com.johnzieman.ziemapp.drinkwater.WaterRepository
 import java.util.*
 

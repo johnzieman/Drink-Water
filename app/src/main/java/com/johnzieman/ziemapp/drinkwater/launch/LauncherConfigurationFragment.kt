@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.johnzieman.ziemapp.drinkwater.R
-import com.johnzieman.ziemapp.drinkwater.User
+import com.johnzieman.ziemapp.drinkwater.models.User
 import com.johnzieman.ziemapp.drinkwater.databinding.FragmentLauncherConfigurationBinding
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnLauncherOpener
 import com.johnzieman.ziemapp.drinkwater.launch.viewModels.LaunchConfigurationViewModel
