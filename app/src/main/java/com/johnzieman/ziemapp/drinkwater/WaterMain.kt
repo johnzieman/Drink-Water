@@ -13,13 +13,14 @@ import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.lottie.LottieAnimationView
+import com.johnzieman.ziemapp.drinkwater.databinding.FragmentWaterMainBinding
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnCheckRegistration
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnSaveUserResult
 
 private const val TAG = "WATERMAIN"
 
 class WaterMain : Fragment() {
-    private lateinit var lottieAnimationView: LottieAnimationView
+    private lateinit var binding:FragmentWaterMainBinding
 
     private var onCheckRegistration: OnCheckRegistration? = null
 
@@ -42,10 +43,7 @@ class WaterMain : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val view = inflater.inflate(R.layout.fragment_water_main, container, false)
-
-
+        binding = FragmentWaterMainBinding.inflate(layoutInflater, container, false)
         waterMainViewModel.getUsers().observe(
             viewLifecycleOwner, Observer {
                 val result = it
@@ -58,8 +56,7 @@ class WaterMain : Fragment() {
                 }
             }
         )
-        lottieAnimationView = view.findViewById(R.id.animationView)
-        lottieAnimationView.cancelAnimation()
+        binding.animationView.cancelAnimation()
 //        button.setOnClickListener {
 //            val animator = ValueAnimator.ofFloat(0f, 0.5f)
 //            animator.addUpdateListener {
@@ -68,7 +65,7 @@ class WaterMain : Fragment() {
 //            animator.start()
 //        }
 
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

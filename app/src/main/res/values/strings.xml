@@ -5,4 +5,5 @@
     <string name="history">History</string>
     <string name="counter">Counter</string>
     <string name="per_day_water_result">%1$s, you will need to drink about %2$s oz(about %3$s ml)  of water a day, which is about %4$s medium glasses of water.</string>
+    <string name="todo">todo</string>
 </resources>
