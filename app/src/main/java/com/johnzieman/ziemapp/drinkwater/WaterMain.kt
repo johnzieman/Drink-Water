@@ -1,26 +1,26 @@
 package com.johnzieman.ziemapp.drinkwater
 
+import android.R
 import android.animation.ValueAnimator
 import android.content.Context
-import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.airbnb.lottie.LottieAnimationView
+import com.dlazaro66.wheelindicatorview.WheelIndicatorItem
 import com.johnzieman.ziemapp.drinkwater.databinding.FragmentWaterMainBinding
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnCheckRegistration
-import com.johnzieman.ziemapp.drinkwater.interfaces.OnSaveUserResult
+
 
 private const val TAG = "WATERMAIN"
 
 class WaterMain : Fragment() {
-    private lateinit var binding:FragmentWaterMainBinding
+    private lateinit var binding: FragmentWaterMainBinding
 
     private var onCheckRegistration: OnCheckRegistration? = null
 
@@ -56,23 +56,32 @@ class WaterMain : Fragment() {
                 }
             }
         )
-        binding.animationView.cancelAnimation()
-//        button.setOnClickListener {
-//            val animator = ValueAnimator.ofFloat(0f, 0.5f)
-//            animator.addUpdateListener {
-//                lottieAnimationView.progress = animator.animatedValue as Float
-//            }
-//            animator.start()
-//        }
+//        binding.animationView.cancelAnimation()
+
+        binding.addWater.setOnClickListener {
+            val animator = ValueAnimator.ofFloat(0f, 0.5f)
+            animator.addUpdateListener {
+                binding.animationView.progress = animator.animatedValue as Float
+            }
+            animator.start()
+        }
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val wheelIndicatorView = binding.wheelIndicatorView
+
+        val waterToBeDrunk = 4.0f
+        val waterDrunk = 3.0f
+        val percentageOfExerciseDone = (waterDrunk / waterToBeDrunk * 100).toInt()
+        wheelIndicatorView.filledPercent = percentageOfExerciseDone
+        val bikeActivityIndicatorItem = WheelIndicatorItem(waterDrunk, Color.parseColor("#2BB5FF"))
+        wheelIndicatorView.addWheelIndicatorItem(bikeActivityIndicatorItem)
+        wheelIndicatorView.startItemsAnimation()
 
     }
-
 
     override fun onDetach() {
         super.onDetach()
