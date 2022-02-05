@@ -1,6 +1,5 @@
-package com.johnzieman.ziemapp.drinkwater
+package com.johnzieman.ziemapp.drinkwater.ui
 
-import android.R
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Color
@@ -13,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dlazaro66.wheelindicatorview.WheelIndicatorItem
+import com.johnzieman.ziemapp.drinkwater.viewmodels.WaterMainViewModel
 import com.johnzieman.ziemapp.drinkwater.databinding.FragmentWaterMainBinding
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnCheckRegistration
 
@@ -53,10 +53,14 @@ class WaterMain : Fragment() {
                 } else {
                     Log.d(TAG, "Database is not empty")
 
+
+
+
                 }
             }
         )
-//        binding.animationView.cancelAnimation()
+
+
 
         binding.addWater.setOnClickListener {
             val animator = ValueAnimator.ofFloat(0f, 0.5f)

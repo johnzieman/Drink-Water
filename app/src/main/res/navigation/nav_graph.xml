@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/waterMain"
-        android:name="com.johnzieman.ziemapp.drinkwater.WaterMain"
+        android:name="com.johnzieman.ziemapp.drinkwater.ui.WaterMain"
         android:label="fragment_water_main"
         tools:layout="@layout/fragment_water_main" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/waterDrunkHistory"
-        android:name="com.johnzieman.ziemapp.drinkwater.WaterDrunkHistory"
+        android:name="com.johnzieman.ziemapp.drinkwater.ui.WaterDrunkHistory"
         android:label="fragment_water_drunk_history"
         tools:layout="@layout/fragment_water_drunk_history" >
         <action
