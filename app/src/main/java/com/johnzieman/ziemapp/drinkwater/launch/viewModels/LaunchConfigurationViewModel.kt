@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.johnzieman.ziemapp.drinkwater.UserRepository
 import com.johnzieman.ziemapp.drinkwater.models.User
-import com.johnzieman.ziemapp.drinkwater.WaterRepository
 import java.util.*
 
 class LaunchConfigurationViewModel : ViewModel() {
@@ -13,23 +13,9 @@ class LaunchConfigurationViewModel : ViewModel() {
     val weightMetrics = listOf("kg", "lbs")
     val genders = listOf("Male", "Female")
 
-    private val waterRepository = WaterRepository.get()
-    private val userIdLiveDate = MutableLiveData<UUID>()
+    private val userRepository = UserRepository.get()
 
     fun addUser(user: User) {
-        waterRepository.addUser(user)
+        userRepository.addUser(user)
     }
-
-    fun loadUser(uuid: UUID) {
-        userIdLiveDate.value = uuid
-    }
-
-    val userLiveData: LiveData<User?> = Transformations.switchMap(userIdLiveDate){
-            storyId-> waterRepository.getUser(storyId)
-    }
-
-    fun getUsers(): LiveData<List<User>> {
-        return waterRepository.getUsers()
-    }
-
 }

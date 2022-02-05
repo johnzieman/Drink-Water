@@ -8,6 +8,8 @@ import java.util.*
 data class WaterDaily(
     @PrimaryKey
     val id: UUID = UUID.randomUUID(),
-    val dailyRate: Float,
-    var drunk: Float
+    val dailyRate: Int,
+    var drunk: Int,
+    var cupsRate: Int,
+    var cupDrunk: Int
 )

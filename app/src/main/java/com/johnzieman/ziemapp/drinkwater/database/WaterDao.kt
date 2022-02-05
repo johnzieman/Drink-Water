@@ -12,7 +12,7 @@ interface WaterDao {
     fun getAllDays(): LiveData<List<WaterDaily>>
 
     @Query("SELECT * FROM water_daily WHERE id=(:id)")
-    fun getUser(id: UUID): LiveData<WaterDaily?>
+    fun getDay(id: UUID): LiveData<WaterDaily?>
 
     @Insert
     fun addAnotherDay(waterDaily: WaterDaily)
