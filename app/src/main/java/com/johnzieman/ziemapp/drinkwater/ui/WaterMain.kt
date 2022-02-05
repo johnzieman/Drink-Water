@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.dlazaro66.wheelindicatorview.WheelIndicatorItem
-import com.johnzieman.ziemapp.drinkwater.viewmodels.WaterMainViewModel
+import com.johnzieman.ziemapp.drinkwater.ui.viewmodels.WaterMainViewModel
 import com.johnzieman.ziemapp.drinkwater.databinding.FragmentWaterMainBinding
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnCheckRegistration
 
@@ -45,17 +45,19 @@ class WaterMain : Fragment() {
     ): View? {
         binding = FragmentWaterMainBinding.inflate(layoutInflater, container, false)
         waterMainViewModel.getUsers().observe(
-            viewLifecycleOwner, Observer {
+            viewLifecycleOwner, Observer { it ->
                 val result = it
                 if (result.isEmpty()) {
                     onCheckRegistration?.onOpenLaunchFragment()
                     Log.d(TAG, "Database is empty")
                 } else {
                     Log.d(TAG, "Database is not empty")
-
-
-
-
+                    waterMainViewModel.getDays().observe(viewLifecycleOwner) { waterDaily ->
+                        showWaterProgress(
+                            waterDaily[0].dailyRate.toFloat(),
+                            if (waterDaily[0].drunk.toFloat() < 1) 1f else waterDaily[0].drunk.toFloat()
+                        )
+                    }
                 }
             }
         )
@@ -73,18 +75,14 @@ class WaterMain : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val wheelIndicatorView = binding.wheelIndicatorView
 
-        val waterToBeDrunk = 4.0f
-        val waterDrunk = 3.0f
-        val percentageOfExerciseDone = (waterDrunk / waterToBeDrunk * 100).toInt()
+    private fun showWaterProgress(waterToBeDrinked: Float, waterDrinked: Float) {
+        val wheelIndicatorView = binding.wheelIndicatorView
+        val percentageOfExerciseDone = (waterDrinked / waterToBeDrinked * 100).toInt()
         wheelIndicatorView.filledPercent = percentageOfExerciseDone
-        val bikeActivityIndicatorItem = WheelIndicatorItem(waterDrunk, Color.parseColor("#2BB5FF"))
+        val bikeActivityIndicatorItem = WheelIndicatorItem(waterDrinked, Color.parseColor("#2BB5FF"))
         wheelIndicatorView.addWheelIndicatorItem(bikeActivityIndicatorItem)
         wheelIndicatorView.startItemsAnimation()
-
     }
 
     override fun onDetach() {

@@ -5,39 +5,48 @@ import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.johnzieman.ziemapp.drinkwater.database.WaterDatabase
 import com.johnzieman.ziemapp.drinkwater.models.User
+import com.johnzieman.ziemapp.drinkwater.models.WaterDaily
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import java.util.*
 import java.util.concurrent.Executors
 
-private const val DATABASE_NAME = "water_db"
+private const val DATABASE_NAME = "water_daily"
 
 class WaterRepository private constructor(context: Context) {
+
+    private val job = SupervisorJob()
+    private val ioScope = CoroutineScope(job + Dispatchers.IO)
+
     private val datebase: WaterDatabase = Room.databaseBuilder(
         context.applicationContext,
         WaterDatabase::class.java,
         DATABASE_NAME
     ).build()
 
-    private val executor = Executors.newSingleThreadExecutor()
-    private val waterDao = datebase.getUserDao()
+    private val waterDao = datebase.getDailyWaterDao()
 
+    fun getAllDay(): LiveData<List<WaterDaily>> = waterDao.getAllDays()
 
-    fun getUsers(): LiveData<List<User>> = waterDao.getUsers()
-    fun getUser(id: UUID): LiveData<User?> = waterDao.getUser(id)
-    fun addUser(user: User) {
-        executor.execute {
-            waterDao.addUser(user)
+    fun getDay(id: UUID): LiveData<WaterDaily?> = waterDao.getDay(id)
+
+    fun addAnotherDay(waterDaily: WaterDaily) {
+        ioScope.launch {
+            waterDao.addAnotherDay(waterDaily)
         }
     }
 
-    fun updateUser(user: User) {
-        executor.execute {
-            waterDao.updateUser(user)
+    fun updateDailyWater(waterDaily: WaterDaily) {
+        ioScope.launch {
+            waterDao.updateDailyWater(waterDaily)
         }
     }
 
-    fun deleteUser(user: User) {
-        executor.execute {
-            waterDao.deleteUser(user)
+    fun deleteDay(waterDaily: WaterDaily) {
+        ioScope.launch {
+            waterDao.deleteDay(waterDaily)
         }
     }
 
@@ -51,6 +60,6 @@ class WaterRepository private constructor(context: Context) {
         }
 
         fun get(): WaterRepository =
-            INSTANCE ?: throw IllegalStateException("CrimeRepository must be initialized")
+            INSTANCE ?: throw IllegalStateException("WaterRepository must be initialized")
     }
 }
