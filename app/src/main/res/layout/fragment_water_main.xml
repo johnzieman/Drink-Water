@@ -51,7 +51,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         android:layout_margin="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -63,11 +63,12 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/lato_bold"
-                android:text="Hi, John!"
+                tools:text="Hi, John!"
                 android:textSize="32sp" />
 
 
@@ -78,7 +79,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -87,11 +88,30 @@
                     <com.dlazaro66.wheelindicatorview.WheelIndicatorView
                         android:id="@+id/wheelIndicatorView"
                         android:layout_width="wrap_content"
-                        android:layout_height="210dp"
+                        android:layout_height="wrap_content"
                         app:backgroundColor="@color/white"
                         app:filledPercent="40"
-                        app:itemsLineWidth="8dp" />
-                </LinearLayout>
+                        app:itemsLineWidth="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/waterPercent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        tools:text="87%"
+                        android:textSize="30sp"
+                        android:fontFamily="@font/lato_bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/wheelIndicatorView"
+                        app:layout_constraintEnd_toEndOf="@+id/wheelIndicatorView"
+                        app:layout_constraintStart_toStartOf="@+id/wheelIndicatorView"
+                        app:layout_constraintTop_toTopOf="@+id/wheelIndicatorView" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <LinearLayout
@@ -99,6 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
+
 
 
                 </LinearLayout>
