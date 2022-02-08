@@ -17,6 +17,7 @@ import com.johnzieman.ziemapp.drinkwater.R
 import com.johnzieman.ziemapp.drinkwater.ui.viewmodels.WaterMainViewModel
 import com.johnzieman.ziemapp.drinkwater.databinding.FragmentWaterMainBinding
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnCheckRegistration
+import com.johnzieman.ziemapp.drinkwater.models.WaterDaily
 
 
 private const val TAG = "WATERMAIN"
@@ -24,6 +25,7 @@ private const val TAG = "WATERMAIN"
 class WaterMain : Fragment() {
     private lateinit var binding: FragmentWaterMainBinding
 
+    lateinit var waterDaily: WaterDaily
     private var onCheckRegistration: OnCheckRegistration? = null
 
 
@@ -56,6 +58,7 @@ class WaterMain : Fragment() {
                 } else {
                     Log.d(TAG, getString(R.string.db_is_not_empty))
                     waterMainViewModel.getDays().observe(viewLifecycleOwner) { waterDaily ->
+                        this@WaterMain.waterDaily = waterDaily[0]
                         showWaterProgress(
                             waterDaily[0].dailyRate.toFloat() / 8,
                             if (waterDaily[0].drunk.toFloat() < 1) 0.1f else waterDaily[0].drunk.toFloat()
@@ -75,15 +78,14 @@ class WaterMain : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var waterDrinked = 10.0.toFloat()
-
         binding.addWater.setOnClickListener {
-//            waterMainViewModel.getDays().observe(viewLifecycleOwner) { waterDaily ->
-                showWaterProgress(
-                    waterDrinked,
-                    waterDrinked - 1
-                )
-//            }
+
+                waterDaily.drunk += waterDaily.dailyRate / waterDaily.cupsRate
+                waterDaily.cupDrunk = waterDaily.cupsRate - 1
+                Log.d(TAG, waterDaily.drunk.toString())
+                waterMainViewModel.updateDay(waterDaily = waterDaily)
+                showWaterProgress(waterDaily.dailyRate.toFloat(), waterDaily.drunk.toFloat())
+
             playWaterAnimation()
         }
         binding.removeWater.setOnClickListener {
