@@ -15,4 +15,7 @@ class WaterMainViewModel : ViewModel() {
 
     fun getDays(): LiveData<List<WaterDaily>> = waterRepository.getAllDay()
 
+    fun updateDay(waterDaily: WaterDaily) {
+        waterRepository.updateDailyWater(waterDaily)
+    }
 }
