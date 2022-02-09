@@ -50,28 +50,31 @@ class WaterMain : Fragment() {
     ): View? {
         binding = FragmentWaterMainBinding.inflate(layoutInflater, container, false)
         waterMainViewModel.getUsers().observe(
-            viewLifecycleOwner, Observer { it ->
-                val result = it
-                if (result.isEmpty()) {
-                    onCheckRegistration?.onOpenLaunchFragment()
-                    Log.d(TAG, getString(R.string.db_is_empty))
-                } else {
-                    Log.d(TAG, getString(R.string.db_is_not_empty))
-                    waterMainViewModel.getDays().observe(viewLifecycleOwner) { waterDaily ->
-                        this@WaterMain.waterDaily = waterDaily[0]
-                        showWaterProgress(
-                            waterDaily[0].dailyRate.toFloat() / 8,
-                            if (waterDaily[0].drunk.toFloat() < 1) 0.1f else waterDaily[0].drunk.toFloat()
-                        )
-                        binding.waterPercent.text = waterDaily[0].drunk.toString() + "%"
-                    }
-                    waterMainViewModel.getUsers().observe(viewLifecycleOwner) {
-                        binding.userName.text = "Hi, ${it[0].userName}"
-                    }
-
+            viewLifecycleOwner
+        ) { it ->
+            val result = it
+            if (result.isEmpty()) {
+                onCheckRegistration?.onOpenLaunchFragment()
+                Log.d(TAG, getString(R.string.db_is_empty))
+            } else {
+                Log.d(TAG, getString(R.string.db_is_not_empty))
+                waterMainViewModel.getDays().observe(viewLifecycleOwner) { waterDaily ->
+                    this@WaterMain.waterDaily = waterDaily[0]
+                    showWaterProgress(
+                        if (waterDaily[0].drunk < 1) 0.1f else waterDaily[0].drunk,
+                        waterDaily[0].dailyRate
+                    )
+                    val currentWaterInPercent =
+                        (waterDaily[0].drunk / waterDaily[0].dailyRate * 100)
+                    binding.waterPercent.text =
+                        String.format("%.1f", currentWaterInPercent) + "%"
                 }
+                waterMainViewModel.getUsers().observe(viewLifecycleOwner) {
+                    binding.userName.text = "Hi, ${it[0].userName}"
+                }
+
             }
-        )
+        }
         return binding.root
     }
 
@@ -79,12 +82,11 @@ class WaterMain : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.addWater.setOnClickListener {
-
-                waterDaily.drunk += waterDaily.dailyRate / waterDaily.cupsRate
-                waterDaily.cupDrunk = waterDaily.cupsRate - 1
-                Log.d(TAG, waterDaily.drunk.toString())
-                waterMainViewModel.updateDay(waterDaily = waterDaily)
-                showWaterProgress(waterDaily.dailyRate.toFloat(), waterDaily.drunk.toFloat())
+            waterDaily.drunk += waterDaily.dailyRate / waterDaily.cupsRate
+            waterDaily.cupDrunk = waterDaily.cupsRate - 1
+            Log.d(TAG, waterDaily.drunk.toString())
+            waterMainViewModel.updateDay(waterDaily = waterDaily)
+//                showWaterProgress(waterDaily.dailyRate.toFloat(), waterDaily.drunk.toFloat())
 
             playWaterAnimation()
         }
@@ -94,7 +96,7 @@ class WaterMain : Fragment() {
     }
 
 
-    private fun showWaterProgress(waterToBeDrinked: Float, waterDrinked: Float) {
+    private fun showWaterProgress(waterDrinked: Float, waterToBeDrinked: Float) {
         val wheelIndicatorView = binding.wheelIndicatorView
         val percentageOfExerciseDone = (waterDrinked / waterToBeDrinked * 100).toInt()
         wheelIndicatorView.filledPercent = percentageOfExerciseDone

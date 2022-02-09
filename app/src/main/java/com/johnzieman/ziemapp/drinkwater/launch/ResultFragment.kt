@@ -105,7 +105,7 @@ class ResultFragment : Fragment() {
             waterGlassCount.toInt().toString()
         )
         val waterDaily =
-            WaterDaily(dailyRate = resultWater.toInt(), drunk = 1, cupsRate = waterGlassCount.toInt(), cupDrunk = 0)
+            WaterDaily(dailyRate = resultWater.toFloat(), drunk = 0.1.toFloat(), cupsRate = waterGlassCount.toInt(), cupDrunk = 0)
         viewModel.addDay(waterDaily)
         Log.d("workingWeight", resultWater.toString())
     }
