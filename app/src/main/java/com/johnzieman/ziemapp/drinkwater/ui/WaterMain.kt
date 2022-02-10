@@ -83,14 +83,23 @@ class WaterMain : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.addWater.setOnClickListener {
             waterDaily.drunk += waterDaily.dailyRate / waterDaily.cupsRate
-            waterDaily.cupDrunk = waterDaily.cupsRate - 1
+            waterDaily.cupDrunk += 1
             Log.d(TAG, waterDaily.drunk.toString())
+            Log.d(TAG, waterDaily.cupDrunk.toString())
             waterMainViewModel.updateDay(waterDaily = waterDaily)
-//                showWaterProgress(waterDaily.dailyRate.toFloat(), waterDaily.drunk.toFloat())
-
             playWaterAnimation()
         }
+
         binding.removeWater.setOnClickListener {
+            Log.d(TAG, waterDaily.cupDrunk.toString())
+            if (waterDaily.cupDrunk > 0){
+                waterDaily.drunk -= waterDaily.dailyRate / waterDaily.cupsRate
+                waterDaily.cupDrunk -=1
+                Log.d(TAG, waterDaily.drunk.toString())
+                waterMainViewModel.updateDay(waterDaily = waterDaily)
+            } else {
+                Log.d(TAG, "Wrong expression!")
+            }
 
         }
     }
