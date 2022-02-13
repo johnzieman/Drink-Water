@@ -12,19 +12,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dlazaro66.wheelindicatorview.WheelIndicatorItem
 import com.johnzieman.ziemapp.drinkwater.R
 import com.johnzieman.ziemapp.drinkwater.ui.viewmodels.WaterMainViewModel
 import com.johnzieman.ziemapp.drinkwater.databinding.FragmentWaterMainBinding
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnCheckRegistration
 import com.johnzieman.ziemapp.drinkwater.models.WaterDaily
+import com.johnzieman.ziemapp.drinkwater.ui.adapters.OtherDrinkAdapter
 
 
 private const val TAG = "WATERMAIN"
 
 class WaterMain : Fragment() {
     private lateinit var binding: FragmentWaterMainBinding
-
+    private lateinit var adapter: OtherDrinkAdapter
     lateinit var waterDaily: WaterDaily
     private var onCheckRegistration: OnCheckRegistration? = null
 
@@ -92,9 +94,9 @@ class WaterMain : Fragment() {
 
         binding.removeWater.setOnClickListener {
             Log.d(TAG, waterDaily.cupDrunk.toString())
-            if (waterDaily.cupDrunk > 0){
+            if (waterDaily.cupDrunk > 0) {
                 waterDaily.drunk -= waterDaily.dailyRate / waterDaily.cupsRate
-                waterDaily.cupDrunk -=1
+                waterDaily.cupDrunk -= 1
                 Log.d(TAG, waterDaily.drunk.toString())
                 waterMainViewModel.updateDay(waterDaily = waterDaily)
             } else {
@@ -102,6 +104,22 @@ class WaterMain : Fragment() {
             }
 
         }
+
+        adapter = OtherDrinkAdapter()
+        adapter.drinks = listOf(
+            R.drawable.ic_baseline_emoji_food_beverage_24,
+            R.drawable.ic_baseline_emoji_food_beverage_24,
+            R.drawable.ic_baseline_emoji_food_beverage_24,
+            R.drawable.ic_baseline_emoji_food_beverage_24,
+            R.drawable.ic_baseline_emoji_food_beverage_24,
+            R.drawable.ic_baseline_emoji_food_beverage_24,
+            R.drawable.ic_baseline_emoji_food_beverage_24
+        )
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext()).apply {
+            orientation = LinearLayoutManager.HORIZONTAL
+        }
+        binding.recyclerView.adapter = adapter
+
     }
 
 

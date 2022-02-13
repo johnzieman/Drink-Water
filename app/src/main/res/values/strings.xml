@@ -8,4 +8,5 @@
     <string name="todo">todo</string>
     <string name="db_is_not_empty">Database is not empty</string>
     <string name="db_is_empty">Database is empty</string>
+    <string name="other_drinks">Other drinks</string>
 </resources>

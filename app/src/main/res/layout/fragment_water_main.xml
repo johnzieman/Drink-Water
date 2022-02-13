@@ -11,10 +11,10 @@
         android:id="@+id/animationView"
         android:layout_width="160dp"
         android:layout_height="180dp"
-        android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/other_drinks_list_card"
         app:lottie_autoPlay="false"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/water_glass_lottie"
@@ -69,14 +69,14 @@
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/lato_bold"
                 android:textColor="@color/black"
-                tools:text="Hi, John!"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                tools:text="Hi, John!" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -103,15 +103,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        tools:text="87%"
-                        android:textSize="30sp"
-                        android:textColor="@color/black"
                         android:fontFamily="@font/lato_bold"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="30sp"
                         app:layout_constraintBottom_toBottomOf="@+id/wheelIndicatorView"
                         app:layout_constraintEnd_toEndOf="@+id/wheelIndicatorView"
                         app:layout_constraintStart_toStartOf="@+id/wheelIndicatorView"
-                        app:layout_constraintTop_toTopOf="@+id/wheelIndicatorView" />
+                        app:layout_constraintTop_toTopOf="@+id/wheelIndicatorView"
+                        tools:text="87%" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -120,31 +120,32 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:weightSum="3"
+                        android:orientation="horizontal"
                         android:padding="5dp"
-                        android:orientation="horizontal">
+                        android:weightSum="3">
 
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:layout_weight="1"
                             android:layout_margin="5dp"
-                            android:src="@drawable/water_drop"/>
+                            android:layout_weight="1"
+                            android:src="@drawable/water_drop" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
                             android:layout_weight="2"
                             android:fontFamily="@font/lato_bold"
-                            android:textSize="20sp"
-                            android:text="970 / 2500"/>
+                            android:text="970 / 2500"
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
 
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -153,40 +154,120 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:weightSum="3"
+                        android:orientation="horizontal"
                         android:padding="5dp"
-                        android:orientation="horizontal">
+                        android:weightSum="3">
 
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:layout_weight="1"
                             android:layout_margin="5dp"
-                            android:src="@drawable/ic_cup"/>
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_cup" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
                             android:layout_weight="2"
                             android:fontFamily="@font/lato_bold"
-                            android:textSize="20sp"
-                            android:text=" 8  / 2500"/>
+                            android:text=" 8  / 2500"
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        android:weightSum="3">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_baseline_emoji_food_beverage_24" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/lato_bold"
+                            android:text="  670ml "
+                            android:textColor="@color/black"
+                            android:textSize="20sp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        android:weightSum="3">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/ic_baseline_history_24" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/lato_bold"
+                            android:text="53 mins ago"
+                            android:textColor="@color/black"
+                            android:textSize="19sp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/other_drinks_list_card"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/lato_bold"
+                android:text="@string/other_drinks"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
 
 
     </com.google.android.material.card.MaterialCardView>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
