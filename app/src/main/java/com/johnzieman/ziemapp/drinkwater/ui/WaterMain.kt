@@ -18,8 +18,10 @@ import com.johnzieman.ziemapp.drinkwater.R
 import com.johnzieman.ziemapp.drinkwater.ui.viewmodels.WaterMainViewModel
 import com.johnzieman.ziemapp.drinkwater.databinding.FragmentWaterMainBinding
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnCheckRegistration
+import com.johnzieman.ziemapp.drinkwater.interfaces.OnOtherDrinksItemClicked
 import com.johnzieman.ziemapp.drinkwater.models.WaterDaily
 import com.johnzieman.ziemapp.drinkwater.ui.adapters.OtherDrinkAdapter
+import com.johnzieman.ziemapp.drinkwater.ui.adapters.OtherDrinkInMLAdapter
 
 
 private const val TAG = "WATERMAIN"
@@ -27,6 +29,7 @@ private const val TAG = "WATERMAIN"
 class WaterMain : Fragment() {
     private lateinit var binding: FragmentWaterMainBinding
     private lateinit var adapter: OtherDrinkAdapter
+    private lateinit var adapterInMl: OtherDrinkInMLAdapter
     lateinit var waterDaily: WaterDaily
     private var onCheckRegistration: OnCheckRegistration? = null
 
@@ -105,7 +108,24 @@ class WaterMain : Fragment() {
 
         }
 
-        adapter = OtherDrinkAdapter()
+        adapter = OtherDrinkAdapter(object : OnOtherDrinksItemClicked {
+            override fun onClick() {
+                adapterInMl = OtherDrinkInMLAdapter()
+                adapterInMl.portion = listOf(
+                    resources.getString(R.string.ml50),
+                    resources.getString(R.string.ml100),
+                    resources.getString(R.string.ml150),
+                    resources.getString(R.string.ml200),
+                    resources.getString(R.string.ml250),
+                    resources.getString(R.string.ml300),
+                    resources.getString(R.string.ml350),
+                    resources.getString(R.string.ml400),
+                    resources.getString(R.string.ml450),
+                    resources.getString(R.string.ml500)
+                )
+                binding.recyclerView.adapter = adapterInMl
+            }
+        })
         adapter.drinks = listOf(
             R.drawable.ic_baseline_emoji_food_beverage_24,
             R.drawable.ic_baseline_emoji_food_beverage_24,
@@ -146,5 +166,4 @@ class WaterMain : Fragment() {
         super.onDetach()
         onCheckRegistration = null
     }
-
 }
