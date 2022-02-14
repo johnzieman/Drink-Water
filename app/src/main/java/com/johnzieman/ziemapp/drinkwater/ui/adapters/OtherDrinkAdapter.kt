@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.johnzieman.ziemapp.drinkwater.databinding.OtherDrinksItemBinding
+import com.johnzieman.ziemapp.drinkwater.interfaces.OnOtherDrinksItemClicked
 
 private const val TAG = "OtherDrinkAdapter"
 
-class OtherDrinkAdapter : RecyclerView.Adapter<OtherDrinkAdapter.OtherDrinksView>() {
+class OtherDrinkAdapter(private val onOtherDrinkItemClick: OnOtherDrinksItemClicked) :
+    RecyclerView.Adapter<OtherDrinkAdapter.OtherDrinksView>() {
     var drinks: List<Int> = emptyList()
         set(newValue) {
             field = newValue
@@ -21,6 +23,7 @@ class OtherDrinkAdapter : RecyclerView.Adapter<OtherDrinkAdapter.OtherDrinksView
         val binding = OtherDrinksItemBinding.inflate(inflater, parent, false)
         binding.root.setOnClickListener {
             Log.d(TAG, "Works!")
+            onOtherDrinkItemClick.onClick()
         }
         return OtherDrinksView(binding)
     }

@@ -9,4 +9,14 @@
     <string name="db_is_not_empty">Database is not empty</string>
     <string name="db_is_empty">Database is empty</string>
     <string name="other_drinks">Other drinks</string>
+    <string name="ml50">50ml</string>
+    <string name="ml100">100ml</string>
+    <string name="ml150">150ml</string>
+    <string name="ml200">200ml</string>
+    <string name="ml250">250ml</string>
+    <string name="ml300">300ml</string>
+    <string name="ml350">350ml</string>
+    <string name="ml400">400ml</string>
+    <string name="ml450">450ml</string>
+    <string name="ml500">500ml</string>
 </resources>
