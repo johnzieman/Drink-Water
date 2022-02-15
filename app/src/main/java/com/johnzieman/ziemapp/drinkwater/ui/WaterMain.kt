@@ -127,13 +127,20 @@ class WaterMain : Fragment() {
             }
         })
         adapter.drinks = listOf(
-            R.drawable.ic_baseline_emoji_food_beverage_24,
-            R.drawable.ic_baseline_emoji_food_beverage_24,
-            R.drawable.ic_baseline_emoji_food_beverage_24,
-            R.drawable.ic_baseline_emoji_food_beverage_24,
-            R.drawable.ic_baseline_emoji_food_beverage_24,
-            R.drawable.ic_baseline_emoji_food_beverage_24,
-            R.drawable.ic_baseline_emoji_food_beverage_24
+            R.drawable.one,
+            R.drawable.three,
+            R.drawable.eight,
+            R.drawable.ten,
+            R.drawable.eleven,
+            R.drawable.twelve,
+            R.drawable.two,
+            R.drawable.four,
+            R.drawable.five,
+            R.drawable.six,
+            R.drawable.seven,
+
+            R.drawable.nine
+
         )
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext()).apply {
             orientation = LinearLayoutManager.HORIZONTAL
