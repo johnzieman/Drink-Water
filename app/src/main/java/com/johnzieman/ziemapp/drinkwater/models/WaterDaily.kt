@@ -10,6 +10,8 @@ data class WaterDaily(
     val id: UUID = UUID.randomUUID(),
     val dailyRate: Float,
     var drunk: Float,
+    var otherDrinks: Float,
     var cupsRate: Int,
-    var cupDrunk: Int
+    var cupDrunk: Int,
+    var lastTimeDrankAnyWater: Long
 )
