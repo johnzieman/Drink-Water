@@ -73,6 +73,20 @@ class WaterMain : Fragment() {
                         (waterDaily[0].drunk / waterDaily[0].dailyRate * 100)
                     binding.waterPercent.text =
                         String.format("%.1f", currentWaterInPercent) + "%"
+
+                    binding.pureWaterDrank.text = getString(
+                        R.string.pure_water_drank,
+                        String.format("%.1f", waterDaily[0].drunk),
+                        String.format("%.1f", waterDaily[0].dailyRate)
+                    )
+
+                    binding.cupsDrank.text = getString(
+                        R.string.pure_water_drank,
+                        waterDaily[0].cupDrunk.toString(),
+                        waterDaily[0].cupsRate.toString()
+                    )
+                    binding.otherDrinksDrank.text = String.format("%.1f", waterDaily[0].otherDrinks) + "ml"
+
                 }
                 waterMainViewModel.getUsers().observe(viewLifecycleOwner) {
                     binding.userName.text = "Hi, ${it[0].userName}"
@@ -138,7 +152,6 @@ class WaterMain : Fragment() {
             R.drawable.five,
             R.drawable.six,
             R.drawable.seven,
-
             R.drawable.nine
 
         )
