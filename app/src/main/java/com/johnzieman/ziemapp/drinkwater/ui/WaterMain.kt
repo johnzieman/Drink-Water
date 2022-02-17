@@ -3,21 +3,26 @@ package com.johnzieman.ziemapp.drinkwater.ui
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.DrawableRes
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dlazaro66.wheelindicatorview.WheelIndicatorItem
 import com.johnzieman.ziemapp.drinkwater.R
 import com.johnzieman.ziemapp.drinkwater.ui.viewmodels.WaterMainViewModel
 import com.johnzieman.ziemapp.drinkwater.databinding.FragmentWaterMainBinding
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnCheckRegistration
+import com.johnzieman.ziemapp.drinkwater.interfaces.OnOtherDrinksCountClicked
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnOtherDrinksItemClicked
 import com.johnzieman.ziemapp.drinkwater.models.WaterDaily
 import com.johnzieman.ziemapp.drinkwater.ui.adapters.OtherDrinkAdapter
@@ -85,7 +90,8 @@ class WaterMain : Fragment() {
                         waterDaily[0].cupDrunk.toString(),
                         waterDaily[0].cupsRate.toString()
                     )
-                    binding.otherDrinksDrank.text = String.format("%.1f", waterDaily[0].otherDrinks) + "ml"
+                    binding.otherDrinksDrank.text =
+                        String.format("%.1f", waterDaily[0].otherDrinks) + "ml"
 
                 }
                 waterMainViewModel.getUsers().observe(viewLifecycleOwner) {
@@ -124,7 +130,22 @@ class WaterMain : Fragment() {
 
         adapter = OtherDrinkAdapter(object : OnOtherDrinksItemClicked {
             override fun onClick() {
-                adapterInMl = OtherDrinkInMLAdapter()
+                adapterInMl = OtherDrinkInMLAdapter(
+                    object : OnOtherDrinksCountClicked {
+                        override fun onClick(ml: Float) {
+                            waterDaily.otherDrinks += ml
+                            waterMainViewModel.updateDay(waterDaily)
+                            binding.otherDrinksTextViewPanel.text = "Other drinks"
+                            binding.otherDrinksTextViewPanel.setCompoundDrawablesWithIntrinsicBounds(
+                                0,
+                                0,
+                               0,
+                                0
+                            )
+                            binding.recyclerView.adapter = adapter
+                        }
+                    }
+                )
                 adapterInMl.portion = listOf(
                     resources.getString(R.string.ml50),
                     resources.getString(R.string.ml100),
@@ -134,10 +155,28 @@ class WaterMain : Fragment() {
                     resources.getString(R.string.ml300),
                     resources.getString(R.string.ml350),
                     resources.getString(R.string.ml400),
-                    resources.getString(R.string.ml450),
-                    resources.getString(R.string.ml500)
+                    resources.getString(R.string.ml450)
                 )
+                binding.otherDrinksTextViewPanel.text = "Choose the ml"
+                binding.otherDrinksTextViewPanel.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.ic_baseline_close_24,
+                    0
+                )
+//                binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 5)
                 binding.recyclerView.adapter = adapterInMl
+                binding.otherDrinksTextViewPanel.setOnClickListener {
+                    binding.otherDrinksTextViewPanel.text = "Other drinks"
+                    binding.otherDrinksTextViewPanel.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        0,
+                        0
+                    )
+                    binding.recyclerView.adapter = adapter
+                }
+
             }
         })
         adapter.drinks = listOf(
