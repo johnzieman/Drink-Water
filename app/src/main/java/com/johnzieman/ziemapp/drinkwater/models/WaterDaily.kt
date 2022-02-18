@@ -13,5 +13,6 @@ data class WaterDaily(
     var otherDrinks: Float,
     var cupsRate: Int,
     var cupDrunk: Int,
-    var lastTimeDrankAnyWater: Long
+    var lastTimeDrankAnyWater: String,
+    var lastTimeDrankAnyWaterReservation: String
 )
