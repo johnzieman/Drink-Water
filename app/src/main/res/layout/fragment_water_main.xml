@@ -286,13 +286,14 @@
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
+                                android:id="@+id/lastTimeDrink"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/lato_bold"
                                 android:gravity="start"
-                                android:text="1 hour ago"
+                                tools:text="Last time: 24.77 "
                                 android:textColor="@color/black"
-                                android:textSize="18sp"
+                                android:textSize="17sp"
                                 tools:layout_editor_absoluteX="56dp"
                                 tools:layout_editor_absoluteY="16dp"
                                 android:layout_marginStart="10dp"

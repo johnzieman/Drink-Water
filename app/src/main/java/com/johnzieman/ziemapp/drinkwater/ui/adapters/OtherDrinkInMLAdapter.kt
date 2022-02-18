@@ -3,6 +3,7 @@ package com.johnzieman.ziemapp.drinkwater.ui.adapters
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.johnzieman.ziemapp.drinkwater.databinding.OtherDrinksItemBinding
@@ -10,6 +11,7 @@ import com.johnzieman.ziemapp.drinkwater.databinding.OtherDrinksItemInMlBinding
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnOtherDrinksCountClicked
 
 private const val TAG = "OtherDrinkInMLAdapter"
+
 class OtherDrinkInMLAdapter(private val onOtherDrinksCountClicked: OnOtherDrinksCountClicked) :
     RecyclerView.Adapter<OtherDrinkInMLAdapter.OtherDrinksInMlView>() {
     private lateinit var binding: OtherDrinksItemInMlBinding
@@ -28,14 +30,27 @@ class OtherDrinkInMLAdapter(private val onOtherDrinksCountClicked: OnOtherDrinks
 
     override fun onBindViewHolder(holder: OtherDrinksInMlView, position: Int) {
         holder.binding.drinkItemInMl.text = portion[position]
-        binding.root.setOnClickListener {
-            val waterMl = portion[position].replace("ml", "").toFloat()
-            onOtherDrinksCountClicked.onClick(waterMl)
-        }
+        holder.bind(position)
     }
 
     override fun getItemCount(): Int = portion.size
 
     inner class OtherDrinksInMlView(val binding: OtherDrinksItemInMlBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+        private var _position = 0
+
+        init {
+            binding.root.setOnClickListener(this)
+        }
+
+        fun bind(position: Int) {
+            _position = position
+        }
+
+        override fun onClick(v: View?) {
+            val waterMl = portion[_position].replace("ml", "").toFloat()
+            Log.d(TAG, waterMl.toString())
+            onOtherDrinksCountClicked.onClick(waterMl)
+        }
+    }
 }

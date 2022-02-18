@@ -111,7 +111,8 @@ class ResultFragment : Fragment() {
                 cupsRate = waterGlassCount.toInt(),
                 cupDrunk = 0,
                 otherDrinks = 0.0.toFloat(),
-                lastTimeDrankAnyWater = 0
+                lastTimeDrankAnyWater = NOINFO,
+                lastTimeDrankAnyWaterReservation = NOINFO
             )
         viewModel.addDay(waterDaily)
         Log.d("workingWeight", resultWater.toString())
@@ -120,6 +121,11 @@ class ResultFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         onSafeUserResult = null
+    }
+
+
+    companion object{
+        private const val NOINFO = "No info yet"
     }
 
 }
