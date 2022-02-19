@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="100dp"
+    android:layout_height="38dp"
+    android:layout_margin="5dp"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    app:cardBackgroundColor="@color/purple_500"
+    app:cardCornerRadius="100dp"
+    app:cardElevation="5dp">
+
+    <TextView
+        android:id="@+id/drink_item_in_ml"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:fontFamily="@font/lato"
+        android:gravity="center"
+        android:text="250ml "
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:drawableRightCompat="@drawable/ic_baseline_autorenew_24" />
+</androidx.cardview.widget.CardView>

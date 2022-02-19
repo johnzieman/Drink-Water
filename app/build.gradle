@@ -60,4 +60,5 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.4.1'
     kapt 'androidx.room:room-compiler:2.4.1'
     implementation 'com.dlazaro66.wheelindicatorview:WheelIndicatorView:1.0.0'
+    implementation 'com.github.cioccarellia:ksprefs:2.3.2'
 }
