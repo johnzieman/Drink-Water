@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.johnzieman.ziemapp.drinkwater.R
+import com.johnzieman.ziemapp.drinkwater.WaterApplication.Companion.prefs
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnSaveUserResult
 import com.johnzieman.ziemapp.drinkwater.launch.viewModels.LaunchConfigurationViewModel
 import com.johnzieman.ziemapp.drinkwater.launch.viewModels.ResultViewModel
@@ -115,6 +116,7 @@ class ResultFragment : Fragment() {
                 lastTimeDrankAnyWaterReservation = NOINFO
             )
         viewModel.addDay(waterDaily)
+        prefs.push(ML, "250ml ")
         Log.d("workingWeight", resultWater.toString())
     }
 
@@ -126,6 +128,7 @@ class ResultFragment : Fragment() {
 
     companion object{
         private const val NOINFO = "No info yet"
+        private const val ML = "ml"
     }
 
 }

@@ -6,14 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.johnzieman.ziemapp.drinkwater.databinding.OtherDrinksItemBinding
 import com.johnzieman.ziemapp.drinkwater.databinding.OtherDrinksItemInMlBinding
-import com.johnzieman.ziemapp.drinkwater.interfaces.OnOtherDrinksCountClicked
+import com.johnzieman.ziemapp.drinkwater.interfaces.OnDrinksCountClicked
 
 private const val TAG = "OtherDrinkInMLAdapter"
 
-class OtherDrinkInMLAdapter(private val onOtherDrinksCountClicked: OnOtherDrinksCountClicked) :
-    RecyclerView.Adapter<OtherDrinkInMLAdapter.OtherDrinksInMlView>() {
+class DrinkInMLAdapter(private val onOtherDrinksCountClicked: OnDrinksCountClicked) :
+    RecyclerView.Adapter<DrinkInMLAdapter.OtherDrinksInMlView>() {
     private lateinit var binding: OtherDrinksItemInMlBinding
     var portion: List<String> = emptyList()
         @SuppressLint("NotifyDataSetChanged")

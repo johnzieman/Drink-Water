@@ -1,5 +1,5 @@
 package com.johnzieman.ziemapp.drinkwater.interfaces
 
-interface OnOtherDrinksCountClicked {
+interface OnDrinksCountClicked {
     fun onClick(ml: Float)
 }

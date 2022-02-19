@@ -14,14 +14,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dlazaro66.wheelindicatorview.WheelIndicatorItem
 import com.johnzieman.ziemapp.drinkwater.R
+import com.johnzieman.ziemapp.drinkwater.WaterApplication.Companion.prefs
 import com.johnzieman.ziemapp.drinkwater.ui.viewmodels.WaterMainViewModel
 import com.johnzieman.ziemapp.drinkwater.databinding.FragmentWaterMainBinding
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnCheckRegistration
-import com.johnzieman.ziemapp.drinkwater.interfaces.OnOtherDrinksCountClicked
+import com.johnzieman.ziemapp.drinkwater.interfaces.OnDrinksCountClicked
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnOtherDrinksItemClicked
 import com.johnzieman.ziemapp.drinkwater.models.WaterDaily
 import com.johnzieman.ziemapp.drinkwater.ui.adapters.OtherDrinkAdapter
-import com.johnzieman.ziemapp.drinkwater.ui.adapters.OtherDrinkInMLAdapter
+import com.johnzieman.ziemapp.drinkwater.ui.adapters.DrinkInMLAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,7 +32,7 @@ private const val TAG = "WATERMAIN"
 class WaterMain : Fragment() {
     private lateinit var binding: FragmentWaterMainBinding
     private lateinit var adapter: OtherDrinkAdapter
-    private lateinit var adapterInMl: OtherDrinkInMLAdapter
+    private lateinit var adapterInMl: DrinkInMLAdapter
     lateinit var waterDaily: WaterDaily
     private var onCheckRegistration: OnCheckRegistration? = null
 
@@ -114,19 +115,21 @@ class WaterMain : Fragment() {
                 waterMainViewModel.getUsers().observe(viewLifecycleOwner) {
                     binding.userName.text = "Hi, ${it[0].userName}"
                 }
-
+                binding.drinkItemInMl.text = prefs.pull(ML)
             }
         }
+
         return binding.root
     }
 
     companion object {
-
+        private const val ML = "ml"
     }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.addWater.setOnClickListener {
             waterDaily.drunk += waterDaily.dailyRate / waterDaily.cupsRate
             waterDaily.cupDrunk += 1
@@ -160,28 +163,21 @@ class WaterMain : Fragment() {
 
         adapter = OtherDrinkAdapter(object : OnOtherDrinksItemClicked {
             override fun onClick() {
-                adapterInMl = OtherDrinkInMLAdapter(
-                    object : OnOtherDrinksCountClicked {
+                adapterInMl = DrinkInMLAdapter(
+                    object : OnDrinksCountClicked {
                         override fun onClick(ml: Float) {
                             waterDaily.otherDrinks += ml
+                            val sdf = SimpleDateFormat("hh:mm")
+                            val currentDate = sdf.format(Date())
+                            waterDaily.lastTimeDrankAnyWaterReservation =
+                                waterDaily.lastTimeDrankAnyWater
+                            waterDaily.lastTimeDrankAnyWater = currentDate
                             waterMainViewModel.updateDay(waterDaily)
                             showOtherDrinksList()
                         }
                     }
                 )
-                adapterInMl.portion = listOf(
-                    resources.getString(R.string.ml50),
-                    resources.getString(R.string.ml100),
-                    resources.getString(R.string.ml150),
-                    resources.getString(R.string.ml200),
-                    resources.getString(R.string.ml250),
-                    resources.getString(R.string.ml300),
-                    resources.getString(R.string.ml350),
-                    resources.getString(R.string.ml400),
-                    resources.getString(R.string.ml450),
-                    resources.getString(R.string.ml500)
-
-                )
+                adapterInMl.portion = listOfMl()
                 showOthherDrinksMlList()
                 binding.otherDrinksTextViewPanel.setOnClickListener {
                     showOtherDrinksList()
@@ -194,6 +190,7 @@ class WaterMain : Fragment() {
             R.drawable.three,
             R.drawable.eight,
             R.drawable.ten,
+            R.drawable.tea,
             R.drawable.eleven,
             R.drawable.twelve,
             R.drawable.two,
@@ -208,6 +205,27 @@ class WaterMain : Fragment() {
             orientation = LinearLayoutManager.HORIZONTAL
         }
         binding.recyclerView.adapter = adapter
+
+
+        binding.waterMlCard.setOnClickListener {
+            binding.waterMlCard.visibility = View.GONE
+            binding.waterInMlRecyclerView.visibility = View.VISIBLE
+            binding.waterInMlRecyclerView.layoutManager =
+                LinearLayoutManager(requireContext()).apply {
+                    this.orientation = LinearLayoutManager.VERTICAL
+                }
+            adapterInMl = DrinkInMLAdapter(object : OnDrinksCountClicked {
+                override fun onClick(ml: Float) {
+                    prefs.push(ML, ml.toInt().toString() + "ml ")
+                    binding.waterMlCard.visibility = View.VISIBLE
+                    binding.waterInMlRecyclerView.visibility = View.GONE
+                    Log.d(TAG, waterMainViewModel.waterInMl)
+                    binding.drinkItemInMl.text = prefs.pull(ML)
+                }
+            })
+            adapterInMl.portion = listOfMl()
+            binding.waterInMlRecyclerView.adapter = adapterInMl
+        }
 
     }
 
@@ -243,6 +261,21 @@ class WaterMain : Fragment() {
         wheelIndicatorView.addWheelIndicatorItem(bikeActivityIndicatorItem)
         wheelIndicatorView.startItemsAnimation()
     }
+
+
+    private fun listOfMl(): List<String> = listOf(
+        resources.getString(R.string.ml50),
+        resources.getString(R.string.ml100),
+        resources.getString(R.string.ml150),
+        resources.getString(R.string.ml200),
+        resources.getString(R.string.ml250),
+        resources.getString(R.string.ml300),
+        resources.getString(R.string.ml350),
+        resources.getString(R.string.ml400),
+        resources.getString(R.string.ml450),
+        resources.getString(R.string.ml500)
+
+    )
 
 
     private fun playWaterAnimation() {

@@ -11,6 +11,8 @@
         android:id="@+id/animationView"
         android:layout_width="160dp"
         android:layout_height="160dp"
+        android:layout_marginBottom="18dp"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,32 +22,76 @@
         app:lottie_rawRes="@raw/water_glass_lottie"
         tools:src="@drawable/water" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_water"
-        style="@style/Button.Theme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_500"
-        android:clickable="true"
-        android:contentDescription="@string/todo"
-        android:focusable="true"
-        android:foregroundGravity="center"
-        android:src="@drawable/ic_baseline_add_24"
-        app:layout_constraintBottom_toBottomOf="@+id/animationView"
-        app:layout_constraintStart_toEndOf="@+id/animationView"
-        app:layout_constraintTop_toTopOf="@+id/animationView" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/remove_water"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:contentDescription="@string/todo"
-        android:focusable="true"
-        android:src="@drawable/ic_baseline_remove_24"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:translationX="-15dp"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/animationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/animationView"
+        app:layout_constraintTop_toTopOf="@+id/animationView">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/remove_water"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:contentDescription="@string/todo"
+            android:focusable="true"
+            android:src="@drawable/ic_baseline_remove_24" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_water"
+            style="@style/Button.Theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/purple_500"
+            android:clickable="true"
+            android:contentDescription="@string/todo"
+            android:focusable="true"
+            android:foregroundGravity="center"
+            android:src="@drawable/ic_baseline_add_24" />
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/water_ml_card"
+        android:layout_width="100dp"
+        android:layout_height="38dp"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:translationX="15dp"
+        android:translationZ="1dp"
+        app:cardBackgroundColor="@color/purple_500"
+        app:cardCornerRadius="100dp"
+        app:cardElevation="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toStartOf="@+id/animationView"
-        app:layout_constraintTop_toTopOf="@+id/animationView" />
+        app:layout_constraintTop_toTopOf="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/drink_item_in_ml"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:adjustViewBounds="true"
+            android:fontFamily="@font/lato"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:drawableRightCompat="@drawable/ic_baseline_autorenew_24" />
+    </androidx.cardview.widget.CardView>
+
+
 
 
     <com.google.android.material.card.MaterialCardView
@@ -119,9 +165,9 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:layout_gravity="center"
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -168,9 +214,6 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
-
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -179,6 +222,7 @@
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:padding="5dp">
+
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
@@ -200,18 +244,17 @@
                                 android:id="@+id/cupsDrank"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
                                 android:fontFamily="@font/lato_bold"
                                 android:gravity="start"
                                 android:text="8/2500"
                                 android:textColor="@color/black"
                                 android:textSize="18sp"
-                                android:layout_marginStart="10dp"
-                                app:layout_constraintTop_toTopOf="@+id/imageView2"
                                 app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-                                app:layout_constraintStart_toEndOf="@+id/imageView2" />
+                                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                                app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -245,15 +288,15 @@
                                 android:id="@+id/otherDrinksDrank"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
                                 android:fontFamily="@font/lato_bold"
                                 android:gravity="start"
                                 android:text="90000ml"
                                 android:textColor="@color/black"
                                 android:textSize="18sp"
-                                android:layout_marginStart="10dp"
-                                app:layout_constraintTop_toTopOf="@+id/imageView3"
                                 app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                                app:layout_constraintStart_toEndOf="@+id/imageView3"/>
+                                app:layout_constraintStart_toEndOf="@+id/imageView3"
+                                app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -289,17 +332,17 @@
                                 android:id="@+id/lastTimeDrink"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
                                 android:fontFamily="@font/lato_bold"
                                 android:gravity="start"
-                                tools:text="Last time: 24.77 "
                                 android:textColor="@color/black"
                                 android:textSize="17sp"
+                                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                                app:layout_constraintTop_toTopOf="@+id/imageView4"
                                 tools:layout_editor_absoluteX="56dp"
                                 tools:layout_editor_absoluteY="16dp"
-                                android:layout_marginStart="10dp"
-                                app:layout_constraintTop_toTopOf="@+id/imageView4"
-                                app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-                                app:layout_constraintStart_toEndOf="@+id/imageView4"/>
+                                tools:text="Last time: 24.77 " />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -347,6 +390,18 @@
 
 
     </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/water_in_ml_recycler_view"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:layout_margin="5dp"
+        android:translationX="15dp"
+        android:translationZ="1dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toStartOf="@+id/animationView"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
