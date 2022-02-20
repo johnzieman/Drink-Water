@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,9 +34,10 @@ class WaterMain : Fragment() {
     private lateinit var binding: FragmentWaterMainBinding
     private lateinit var adapter: OtherDrinkAdapter
     private lateinit var adapterInMl: DrinkInMLAdapter
-    lateinit var waterDaily: WaterDaily
+    private lateinit var waterDaily: WaterDaily
     private var onCheckRegistration: OnCheckRegistration? = null
 
+    private var waterMlCount: Float = 0F
 
     private val waterMainViewModel: WaterMainViewModel by lazy {
         ViewModelProvider(this).get(WaterMainViewModel::class.java)
@@ -111,11 +113,14 @@ class WaterMain : Fragment() {
                         }
                     }
 
+
+
                 }
                 waterMainViewModel.getUsers().observe(viewLifecycleOwner) {
                     binding.userName.text = "Hi, ${it[0].userName}"
                 }
-                binding.drinkItemInMl.text = prefs.pull(ML)
+                waterMlCount = prefs.pull(ML)
+                binding.drinkItemInMl.text = waterMlCount.toInt().toString() + "ml  "
             }
         }
 
@@ -126,12 +131,12 @@ class WaterMain : Fragment() {
         private const val ML = "ml"
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.addWater.setOnClickListener {
-            waterDaily.drunk += waterDaily.dailyRate / waterDaily.cupsRate
+            waterDaily.drunk += waterMlCount
             waterDaily.cupDrunk += 1
             val sdf = SimpleDateFormat("hh:mm")
             val currentDate = sdf.format(Date())
@@ -141,11 +146,12 @@ class WaterMain : Fragment() {
             Log.d(TAG, currentDate)
             waterMainViewModel.updateDay(waterDaily = waterDaily)
             playWaterAnimation()
+            showEnoughErrorMessage()
         }
 
         binding.removeWater.setOnClickListener {
             if (waterDaily.cupDrunk > 0) {
-                waterDaily.drunk -= waterDaily.dailyRate / waterDaily.cupsRate
+                waterDaily.drunk -= waterMlCount
                 waterDaily.cupDrunk -= 1
 
                 if (waterDaily.cupDrunk == 0) {
@@ -159,6 +165,7 @@ class WaterMain : Fragment() {
                 Log.d(TAG, "Wrong expression!")
             }
 
+            showEnoughErrorMessage()
         }
 
         adapter = OtherDrinkAdapter(object : OnOtherDrinksItemClicked {
@@ -216,17 +223,39 @@ class WaterMain : Fragment() {
                 }
             adapterInMl = DrinkInMLAdapter(object : OnDrinksCountClicked {
                 override fun onClick(ml: Float) {
-                    prefs.push(ML, ml.toInt().toString() + "ml ")
+                    prefs.push(ML, ml)
                     binding.waterMlCard.visibility = View.VISIBLE
                     binding.waterInMlRecyclerView.visibility = View.GONE
-                    Log.d(TAG, waterMainViewModel.waterInMl)
-                    binding.drinkItemInMl.text = prefs.pull(ML)
+                    binding.drinkItemInMl.text = prefs.pull<Float>(ML).toInt().toString() + "ml  "
+                    waterMlCount = ml
+                    val waterRemain = waterDaily.dailyRate - waterDaily.drunk
+                    waterDaily.cupsRate = (waterRemain / waterMlCount).toInt().inc()
+                    waterDaily.cupDrunk = 0
+                    waterMainViewModel.updateDay(waterDaily)
                 }
             })
             adapterInMl.portion = listOfMl()
             binding.waterInMlRecyclerView.adapter = adapterInMl
         }
 
+    }
+
+
+    private fun showEnoughErrorMessage(){
+        if (waterDaily.drunk > waterDaily.dailyRate) {
+            binding.cupsDrank.setTextColor(resources.getColor(R.color.red))
+            binding.pureWaterDrank.setTextColor(resources.getColor(R.color.red))
+            binding.otherDrinksDrank.setTextColor(resources.getColor(R.color.red))
+            Toast.makeText(
+                requireContext(),
+                "You have drunk too much, stop!",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            binding.cupsDrank.setTextColor(resources.getColor(R.color.black))
+            binding.pureWaterDrank.setTextColor(resources.getColor(R.color.black))
+            binding.otherDrinksDrank.setTextColor(resources.getColor(R.color.black))
+        }
     }
 
 

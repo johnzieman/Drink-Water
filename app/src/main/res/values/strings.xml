@@ -4,8 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="history">Statistics</string>
     <string name="counter">Counter</string>
-    <string name="per_day_water_result">%1$s, you will need to drink about %2$s oz(about %3$s ml)  of water a day, which is about %4$s medium glasses of water.</string>
-    <string name="pure_water_drank">%1$s / %2$s ml</string>
+    <string name="per_day_water_result">%1$s, you will need to drink about %2$soz(~) (about %3$sml (~) )  of water a day, which is about %4$s medium glasses of water.</string>
+    <string name="pure_water_drank">%1$s / %2$sml</string>
     <string name="cups_drank">%1$s / %2$s</string>
     <string name="todo">todo</string>
     <string name="db_is_not_empty">Database is not empty</string>
