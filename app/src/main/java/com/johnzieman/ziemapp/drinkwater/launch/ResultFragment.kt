@@ -116,7 +116,7 @@ class ResultFragment : Fragment() {
                 lastTimeDrankAnyWaterReservation = NOINFO
             )
         viewModel.addDay(waterDaily)
-        prefs.push(ML, "250ml ")
+        prefs.push(ML, 250F)
         Log.d("workingWeight", resultWater.toString())
     }
 

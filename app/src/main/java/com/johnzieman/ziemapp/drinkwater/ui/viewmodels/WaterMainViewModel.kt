@@ -12,8 +12,6 @@ class WaterMainViewModel : ViewModel() {
     private val userRepository = UserRepository.get()
     private val waterRepository = WaterRepository.get()
 
-    var waterInMl = prefs.pull<String>("ml")
-
     fun getUsers(): LiveData<List<User>> = userRepository.getUsers()
 
     fun getDays(): LiveData<List<WaterDaily>> = waterRepository.getAllDay()
