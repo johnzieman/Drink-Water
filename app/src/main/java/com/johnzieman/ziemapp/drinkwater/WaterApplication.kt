@@ -9,6 +9,7 @@ class WaterApplication : Application() {
         super.onCreate()
         UserRepository.initialize(this)
         WaterRepository.initialize(this)
+        DailyRepository.initialize(this)
         appContext = this
     }
 
