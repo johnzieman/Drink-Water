@@ -26,9 +26,9 @@ class DailyRepository private constructor(context: Context) {
 
     private val waterDao = datebase.getDailyHistoryDao()
 
-    fun getAllDay(): LiveData<List<DailyStory>> = waterDao.getDailyHistories()
+    fun getWholeList(): LiveData<List<DailyStory>> = waterDao.getDailyHistories()
 
-    fun getDay(id: UUID): LiveData<DailyStory?> = waterDao.getDailyHistory(id)
+    fun getItem(id: UUID): LiveData<DailyStory?> = waterDao.getDailyHistory(id)
 
     fun addAnotherDay(dailyStory: DailyStory) {
         ioScope.launch {
@@ -36,7 +36,7 @@ class DailyRepository private constructor(context: Context) {
         }
     }
 
-    fun updateDailyWater(dailyStory: DailyStory) {
+    fun updateHistoryList(dailyStory: DailyStory) {
         ioScope.launch {
             waterDao.updateDailyHistory(dailyStory)
         }

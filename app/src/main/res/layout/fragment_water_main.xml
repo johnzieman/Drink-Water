@@ -29,8 +29,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:translationX="-15dp"
         android:padding="5dp"
+        android:translationX="-15dp"
         app:layout_constraintBottom_toBottomOf="@+id/animationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/animationView"
@@ -81,18 +81,16 @@
             android:id="@+id/drink_item_in_ml"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_margin="10dp"
             android:adjustViewBounds="true"
             android:fontFamily="@font/lato"
             android:gravity="center"
-            android:layout_gravity="center"
             android:text="50ml  "
             android:textColor="@color/white"
             android:textSize="18sp"
             app:drawableRightCompat="@drawable/ic_baseline_autorenew_24" />
     </androidx.cardview.widget.CardView>
-
-
 
 
     <com.google.android.material.card.MaterialCardView
@@ -362,24 +360,54 @@
 
 
             <View
+                android:id="@+id/viewLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#CFCFCF"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintBottom_toTopOf="@+id/textView4"
+                android:background="#CFCFCF"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-            <TextView
-                android:id="@+id/textView4"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/expandableView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/expandable_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/viewLine">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/drinkHistoryRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                android:id="@+id/expandable_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:text="Expand"
                 android:textAllCaps="true"
                 android:textColor="@color/purple_700"
@@ -388,7 +416,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+                app:layout_constraintTop_toBottomOf="@id/expandableView" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

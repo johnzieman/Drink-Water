@@ -5,6 +5,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,14 +18,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dlazaro66.wheelindicatorview.WheelIndicatorItem
 import com.johnzieman.ziemapp.drinkwater.R
 import com.johnzieman.ziemapp.drinkwater.WaterApplication.Companion.prefs
-import com.johnzieman.ziemapp.drinkwater.ui.viewmodels.WaterMainViewModel
 import com.johnzieman.ziemapp.drinkwater.databinding.FragmentWaterMainBinding
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnCheckRegistration
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnDrinksCountClicked
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnOtherDrinksItemClicked
 import com.johnzieman.ziemapp.drinkwater.models.WaterDaily
-import com.johnzieman.ziemapp.drinkwater.ui.adapters.OtherDrinkAdapter
 import com.johnzieman.ziemapp.drinkwater.ui.adapters.DrinkInMLAdapter
+import com.johnzieman.ziemapp.drinkwater.ui.adapters.OtherDrinkAdapter
+import com.johnzieman.ziemapp.drinkwater.ui.viewmodels.WaterMainViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -114,13 +116,19 @@ class WaterMain : Fragment() {
                     }
 
 
-
                 }
                 waterMainViewModel.getUsers().observe(viewLifecycleOwner) {
                     binding.userName.text = "Hi, ${it[0].userName}"
                 }
                 waterMlCount = prefs.pull(ML)
                 binding.drinkItemInMl.text = waterMlCount.toInt().toString() + "ml  "
+                waterMainViewModel.getHistoryList().observe(viewLifecycleOwner){
+                    if (it.isEmpty()){
+                        binding.expandableButton.visibility = View.GONE
+                    } else {
+                        binding.expandableButton.visibility = View.VISIBLE
+                    }
+                }
             }
         }
 
@@ -147,6 +155,12 @@ class WaterMain : Fragment() {
             waterMainViewModel.updateDay(waterDaily = waterDaily)
             playWaterAnimation()
             showEnoughErrorMessage()
+            if (waterDaily.drunk > waterDaily.dailyRate) {
+                binding.waterMlCard.visibility = View.INVISIBLE
+            } else {
+                binding.waterMlCard.visibility = View.VISIBLE
+            }
+
         }
 
         binding.removeWater.setOnClickListener {
@@ -164,8 +178,12 @@ class WaterMain : Fragment() {
             } else {
                 Log.d(TAG, "Wrong expression!")
             }
-
             showEnoughErrorMessage()
+            if (waterDaily.drunk > waterDaily.dailyRate) {
+                binding.waterMlCard.visibility = View.INVISIBLE
+            } else {
+                binding.waterMlCard.visibility = View.VISIBLE
+            }
         }
 
         adapter = OtherDrinkAdapter(object : OnOtherDrinksItemClicked {
@@ -213,7 +231,6 @@ class WaterMain : Fragment() {
         }
         binding.recyclerView.adapter = adapter
 
-
         binding.waterMlCard.setOnClickListener {
             binding.waterMlCard.visibility = View.GONE
             binding.waterInMlRecyclerView.visibility = View.VISIBLE
@@ -238,10 +255,21 @@ class WaterMain : Fragment() {
             binding.waterInMlRecyclerView.adapter = adapterInMl
         }
 
+        binding.expandableButton.setOnClickListener {
+            if (binding.expandableView.visibility == View.GONE) {
+                TransitionManager.beginDelayedTransition(binding.card, AutoTransition())
+                binding.expandableView.visibility = View.VISIBLE
+
+            } else {
+                TransitionManager.beginDelayedTransition(binding.card, AutoTransition())
+                binding.expandableView.visibility = View.GONE
+            }
+        }
+
     }
 
 
-    private fun showEnoughErrorMessage(){
+    private fun showEnoughErrorMessage() {
         if (waterDaily.drunk > waterDaily.dailyRate) {
             binding.cupsDrank.setTextColor(resources.getColor(R.color.red))
             binding.pureWaterDrank.setTextColor(resources.getColor(R.color.red))
