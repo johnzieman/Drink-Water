@@ -9,4 +9,9 @@
         android:id="@+id/waterDrunkHistory"
         android:icon="@drawable/ic_baseline_view_list_24"
         android:title="@string/history" />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="Settings" />
 </menu>
