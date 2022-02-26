@@ -22,12 +22,16 @@ import com.johnzieman.ziemapp.drinkwater.databinding.FragmentWaterMainBinding
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnCheckRegistration
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnDrinksCountClicked
 import com.johnzieman.ziemapp.drinkwater.interfaces.OnOtherDrinksItemClicked
+import com.johnzieman.ziemapp.drinkwater.models.DailyStory
 import com.johnzieman.ziemapp.drinkwater.models.WaterDaily
 import com.johnzieman.ziemapp.drinkwater.ui.adapters.DrinkInMLAdapter
+import com.johnzieman.ziemapp.drinkwater.ui.adapters.ExpandableAdapter
 import com.johnzieman.ziemapp.drinkwater.ui.adapters.OtherDrinkAdapter
 import com.johnzieman.ziemapp.drinkwater.ui.viewmodels.WaterMainViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.exp
+import kotlin.math.log
 
 
 private const val TAG = "WATERMAIN"
@@ -36,6 +40,7 @@ class WaterMain : Fragment() {
     private lateinit var binding: FragmentWaterMainBinding
     private lateinit var adapter: OtherDrinkAdapter
     private lateinit var adapterInMl: DrinkInMLAdapter
+    private lateinit var expandableAdapter: ExpandableAdapter
     private lateinit var waterDaily: WaterDaily
     private var onCheckRegistration: OnCheckRegistration? = null
 
@@ -122,13 +127,6 @@ class WaterMain : Fragment() {
                 }
                 waterMlCount = prefs.pull(ML)
                 binding.drinkItemInMl.text = waterMlCount.toInt().toString() + "ml  "
-                waterMainViewModel.getHistoryList().observe(viewLifecycleOwner){
-                    if (it.isEmpty()){
-                        binding.expandableButton.visibility = View.GONE
-                    } else {
-                        binding.expandableButton.visibility = View.VISIBLE
-                    }
-                }
             }
         }
 
@@ -161,6 +159,14 @@ class WaterMain : Fragment() {
                 binding.waterMlCard.visibility = View.VISIBLE
             }
 
+            waterMainViewModel.addOneDrinkHistory(
+                DailyStory(
+                    logo = R.drawable.water,
+                    timeList = currentDate,
+                    howMuchList = waterMlCount
+                )
+            )
+
         }
 
         binding.removeWater.setOnClickListener {
@@ -185,6 +191,23 @@ class WaterMain : Fragment() {
                 binding.waterMlCard.visibility = View.VISIBLE
             }
         }
+
+        expandableAdapter = ExpandableAdapter()
+        binding.drinkHistoryRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext()).also {
+                LinearLayoutManager.VERTICAL
+            }
+        waterMainViewModel.getHistoryList().observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                binding.expandableButton.visibility = View.GONE
+            } else {
+                Log.d(TAG, it[0].timeList.toString())
+                binding.expandableButton.visibility = View.VISIBLE
+                expandableAdapter.drinks = it
+                binding.drinkHistoryRecyclerView.adapter = expandableAdapter
+            }
+        }
+
 
         adapter = OtherDrinkAdapter(object : OnOtherDrinksItemClicked {
             override fun onClick() {
