@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dlazaro66.wheelindicatorview.WheelIndicatorItem
+import com.google.android.material.card.MaterialCardView
 import com.johnzieman.ziemapp.drinkwater.R
 import com.johnzieman.ziemapp.drinkwater.WaterApplication.Companion.prefs
 import com.johnzieman.ziemapp.drinkwater.databinding.FragmentWaterMainBinding
@@ -30,8 +31,6 @@ import com.johnzieman.ziemapp.drinkwater.ui.adapters.OtherDrinkAdapter
 import com.johnzieman.ziemapp.drinkwater.ui.viewmodels.WaterMainViewModel
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.exp
-import kotlin.math.log
 
 
 private const val TAG = "WATERMAIN"
@@ -140,6 +139,11 @@ class WaterMain : Fragment() {
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val displayMetrics = requireContext().resources.displayMetrics
+        val dpHeight = displayMetrics.heightPixels / displayMetrics.density
+
+        Log.d(TAG, dpHeight.toInt().toString() + "dp")
 
         binding.addWater.setOnClickListener {
             waterDaily.drunk += waterMlCount
@@ -279,13 +283,25 @@ class WaterMain : Fragment() {
         }
 
         binding.expandableButton.setOnClickListener {
-            if (binding.expandableView.visibility == View.GONE) {
+            if (binding.drinkHistoryRecyclerView.visibility == View.GONE) {
+                binding.expandableButton.text = getString(R.string.collapse)
                 TransitionManager.beginDelayedTransition(binding.card, AutoTransition())
-                binding.expandableView.visibility = View.VISIBLE
+                binding.waterMlCard.visibility = View.GONE
+                binding.animationView.visibility = View.GONE
+                binding.addWaterLinearLayout.visibility = View.GONE
+                binding.otherDrinksListCard.visibility = View.GONE
+                binding.userName.visibility = View.GONE
+                binding.drinkHistoryRecyclerView.visibility = View.VISIBLE
 
             } else {
+                binding.expandableButton.text = getString(R.string.expand)
                 TransitionManager.beginDelayedTransition(binding.card, AutoTransition())
-                binding.expandableView.visibility = View.GONE
+                binding.waterMlCard.visibility = View.VISIBLE
+                binding.animationView.visibility = View.VISIBLE
+                binding.addWaterLinearLayout.visibility = View.VISIBLE
+                binding.otherDrinksListCard.visibility = View.VISIBLE
+                binding.userName.visibility = View.VISIBLE
+                binding.drinkHistoryRecyclerView.visibility = View.GONE
             }
         }
 

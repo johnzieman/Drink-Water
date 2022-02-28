@@ -9,11 +9,15 @@
         <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/drawable/ic_baseline_local_drink_24.xml" value="0.3055" />
         <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/drawable/ic_baseline_remove_24.xml" value="0.339" />
         <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/drawable/ic_cup.xml" value="0.226" />
+        <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/layout-large/fragment_water_main.xml" value="0.5421875" />
+        <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/layout-small/fragment_water_main.xml" value="2.4785714285714286" />
+        <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/layout-xlarge/fragment_water_main.xml" value="0.3388671875" />
         <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/layout/activity_main.xml" value="0.3614583333333333" />
         <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/layout/drink_history_item.xml" value="0.25" />
         <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/layout/fragment_result.xml" value="0.3614583333333333" />
-        <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/layout/fragment_water_main.xml" value="0.3614583333333333" />
+        <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/layout/fragment_water_main.xml" value="0.2906666666666667" />
         <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/layout/fragment_water_main.xsd" value="0.3614583333333333" />
+        <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/layout/fragment_water_main_large.xml" value="0.3614583333333333" />
         <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/layout/other_drinks_item.xml" value="0.3614583333333333" />
         <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/layout/other_drinks_item_in_ml.xml" value="0.3614583333333333" />
         <entry key="..\:/Users/John/Desktop/Drink-Water/app/src/main/res/layout/water_in_ml.xml" value="0.3385416666666667" />
