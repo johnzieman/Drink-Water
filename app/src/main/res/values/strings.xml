@@ -24,4 +24,6 @@
     <string name="choose_the_ml">Choose the ml</string>
     <string name="no_info_yet">No info yet</string>
     <string name="last_time_drank">Last time: %1$s</string>
+    <string name="collapse">Collapse</string>
+    <string name="expand">Expand</string>
 </resources>
