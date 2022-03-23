@@ -193,6 +193,13 @@ class WaterMain : Fragment() {
             } else {
                 binding.waterMlCard.visibility = View.VISIBLE
             }
+
+            waterMainViewModel.getOneDayDrinkFullHistory().observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
+                    val oneDrink = it[0]
+                    waterMainViewModel.removeOneDrinkHistory(oneDrink)
+                }
+            }
         }
 
         expandableAdapter = ExpandableAdapter()
@@ -286,7 +293,10 @@ class WaterMain : Fragment() {
                 binding.expandableButton.text = getString(R.string.collapse)
                 TransitionManager.beginDelayedTransition(binding.card, AutoTransition())
                 TransitionManager.beginDelayedTransition(binding.waterMlCard, AutoTransition())
-                TransitionManager.beginDelayedTransition(binding.otherDrinksListCard, AutoTransition())
+                TransitionManager.beginDelayedTransition(
+                    binding.otherDrinksListCard,
+                    AutoTransition()
+                )
                 TransitionManager.beginDelayedTransition(binding.waterGroup, AutoTransition())
                 binding.waterMlCard.visibility = View.GONE
 //                binding.animationView.visibility = View.GONE
@@ -299,7 +309,10 @@ class WaterMain : Fragment() {
                 binding.expandableButton.text = getString(R.string.expand)
 //                TransitionManager.beginDelayedTransition(binding.card, AutoTransition())
                 TransitionManager.beginDelayedTransition(binding.waterMlCard, AutoTransition())
-                TransitionManager.beginDelayedTransition(binding.otherDrinksListCard, AutoTransition())
+                TransitionManager.beginDelayedTransition(
+                    binding.otherDrinksListCard,
+                    AutoTransition()
+                )
                 TransitionManager.beginDelayedTransition(binding.waterGroup, AutoTransition())
                 binding.waterMlCard.visibility = View.VISIBLE
 //                binding.animationView.visibility = View.VISIBLE
