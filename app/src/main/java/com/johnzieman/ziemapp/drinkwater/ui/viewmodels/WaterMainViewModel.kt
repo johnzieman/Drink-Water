@@ -24,6 +24,12 @@ class WaterMainViewModel : ViewModel() {
         daily.addAnotherDay(dailyStory)
     }
 
+    fun removeOneDrinkHistory(dailyStory: DailyStory) {
+        daily.deleteDay(dailyStory)
+    }
+
+    fun getOneDayDrinkFullHistory(): LiveData<List<DailyStory>> = daily.getWholeList()
+
     fun updateDay(waterDaily: WaterDaily) {
         waterRepository.updateDailyWater(waterDaily)
     }
